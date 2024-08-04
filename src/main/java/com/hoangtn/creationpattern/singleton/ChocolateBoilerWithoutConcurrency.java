@@ -35,8 +35,8 @@ public class ChocolateBoilerWithoutConcurrency {
      */
     public void fill() {
         if (this.isEmpty()) {
-            empty = false;
-            boiled = false;
+            this.empty = false;
+            this.boiled = false;
             // fill the boiler with a milk/chocolate mixture
         }
     }
@@ -57,7 +57,7 @@ public class ChocolateBoilerWithoutConcurrency {
      * Once it’s boiled we set the boiled flag to true.
      */
     public void boil() {
-        if (!this.isEmpty() && this.isBoiled()) {
+        if (!this.isEmpty() && !this.isBoiled()) {
             // bring the contents to a boil
             this.boiled = true;
         }

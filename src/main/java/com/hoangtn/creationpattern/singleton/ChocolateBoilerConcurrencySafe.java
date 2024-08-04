@@ -13,8 +13,8 @@ public class ChocolateBoilerConcurrencySafe {
      */
     public void fill() {
         if (this.isEmpty()) {
-            empty = false;
-            boiled = false;
+            this.empty = false;
+            this.boiled = false;
             // fill the boiler with a milk/chocolate mixture
         }
     }

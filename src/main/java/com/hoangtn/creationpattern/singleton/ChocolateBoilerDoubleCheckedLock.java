@@ -2,14 +2,17 @@ package com.hoangtn.creationpattern.singleton;
 
 import lombok.Getter;
 
+import java.util.concurrent.atomic.AtomicReference;
+
 @Getter
 public class ChocolateBoilerDoubleCheckedLock {
 
     private boolean empty;
     private boolean boiled;
+
     // The volatile keyword ensures that multiple threads handle the [instance] variable correctly
     // when it is being initialized to the Singleton instance.
-    private static volatile ChocolateBoilerDoubleCheckedLock instance = null;
+    private static AtomicReference<ChocolateBoilerDoubleCheckedLock> instance = new AtomicReference<>(null);
 
     /**
      * This code is only started when the boiler is empty!
@@ -26,16 +29,18 @@ public class ChocolateBoilerDoubleCheckedLock {
      * @return instance of ChocolateBoiler
      */
     public static synchronized ChocolateBoilerDoubleCheckedLock getInstance() {
+        ChocolateBoilerDoubleCheckedLock localInstance = instance.get();
         // Check for an instance and if there isn’t one, enter a synchronized block
-        if (instance == null) {
+        if (localInstance == null) {
             // Note we only synchronize the first time through!
             synchronized (ChocolateBoilerDoubleCheckedLock.class) {
-                if (instance == null) {
-                    instance = new ChocolateBoilerDoubleCheckedLock();
+                if (localInstance == null) {
+                    localInstance = new ChocolateBoilerDoubleCheckedLock();
+                    instance.set(localInstance);
                 }
             }
         }
-        return instance;
+        return localInstance;
     }
 
     /**

@@ -1,4 +1,4 @@
-package com.hoangtn.behavioralpattern.templatemethodpattern.starbuzzbeverages;
+package com.hoangtn.behavioralpattern.templatemethod.starbuzzbeverages;
 
 public abstract class CaffeineBeverage {
 
